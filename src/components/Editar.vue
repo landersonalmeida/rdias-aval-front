@@ -11,12 +11,12 @@
                     </div>
                     <div class="input-field col s6">
                         <input
-                            v-validate="'required|alpha_spaces'"
+                            v-validate="{ required: true, regex: /^[a-zA-Z]+(?: +[a-zA-Z]+)+$/i }"
                             v-model="datas.nome"
                             name="nome"
                             :class="{'invalid': errors.has('nome')}"
                             id="nome" type="text" class="validate">
-                        <label class="active" for="nome">Nome<strong class="red-text">*</strong></label>
+                        <label class="active" for="nome">Nome Completo<strong class="red-text">*</strong></label>
                         <span class="helper-text" :data-error="errors.first('nome')"></span>
                     </div>
                 </div>

@@ -18,12 +18,12 @@
                     </div>
                     <div class="input-field col s6">
                         <input
-                            v-validate="'required|alpha_spaces'"
+                            v-validate="{ required: true, regex: /^[a-zA-Z]+(?: +[a-zA-Z]+)+$/i }"
                             v-model="datas.nome"
                             name="nome"
                             :class="{'invalid': errors.has('nome')}"
                             id="nome" type="text">
-                        <label for="nome">Nome<strong class="red-text">*</strong></label>
+                        <label for="nome">Nome Completo<strong class="red-text">*</strong></label>
                         <span class="helper-text" :data-error="errors.first('nome')"></span>
                     </div>
                 </div>
@@ -36,6 +36,7 @@
                         <input
                             v-validate="'required|email'"
                             v-model="datas.email"
+                            data-vv-as="e-mail"
                             name="email"
                             :class="{'invalid': errors.has('email')}"
                             id="email" type="text">
@@ -89,7 +90,13 @@ export default {
 
                     // Redirecionando o operador de volta para a listagem de usuários
                     this.$router.push({ name: 'Index' })
-                }).catch(() => {
+                }).catch(err => {
+                    // Verifica se é erro de validação
+                    if (err.response.status === 422) {
+                        // eslint-disable-next-line
+                        return M.toast({ classes: 'orange', html: err.response.data.data.errors.email })
+                    }
+
                     // Informa o operador caso haja algum erro na requisição
                     // eslint-disable-next-line
                     return M.toast({ classes: 'red', html: 'Ops, ocorreu um erro' })
