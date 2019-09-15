@@ -75,6 +75,10 @@ export default {
 
                     // Redirecionando o operador de volta para a listagem de usuários
                     this.$router.push({ name: 'Index' })
+                }).catch(() => {
+                    // Informa o operador caso haja algum erro na requisição
+                    // eslint-disable-next-line
+                    return M.toast({ classes: 'red', html: 'Ops, ocorreu um erro' })
                 })
             })
         }

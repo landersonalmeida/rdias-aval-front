@@ -10,8 +10,10 @@ import VModal from 'vue-js-modal'
 import VueTheMask from 'vue-the-mask'
 import VeeValidate from 'vee-validate'
 import VeeValidatePTBR from 'vee-validate/dist/locale/pt_BR'
+import CPFValidator from './custom_rules/CPF.validator'
 
 VeeValidate.Validator.localize('pt_BR', VeeValidatePTBR)
+VeeValidate.Validator.extend('CPF', CPFValidator)
 
 Vue.use(VModal, { dialog: true })
 Vue.use(VueTheMask)

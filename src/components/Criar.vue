@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="input-field col s6">
                         <input
-                            v-validate="'required|min:14'"
+                            v-validate="'required|CPF'"
                             v-mask="['###.###.###-##']"
                             v-model="datas.CPF"
                             name="CPF"
@@ -83,10 +83,16 @@ export default {
                 }
 
                 this.$repo.get('usuario').create(this.datas).then((result) => {
-                    // Notificar
+                    // Notifica o operador com uma mensagem de sucesso
+                    // eslint-disable-next-line
+                    M.toast({ classes: 'green', html: 'Usuário cadastrado com sucesso' })
 
                     // Redirecionando o operador de volta para a listagem de usuários
                     this.$router.push({ name: 'Index' })
+                }).catch(() => {
+                    // Informa o operador caso haja algum erro na requisição
+                    // eslint-disable-next-line
+                    return M.toast({ classes: 'red', html: 'Ops, ocorreu um erro' })
                 })
             })
         }
